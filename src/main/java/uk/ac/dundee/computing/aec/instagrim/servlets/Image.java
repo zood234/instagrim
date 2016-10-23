@@ -34,7 +34,7 @@ import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 @WebServlet(urlPatterns = {
     "/Image",
     "/Image/*",
-    "/Thumb/*",
+  // "/Thumb/*",
     "/Images",
     "/Images/*"
 })

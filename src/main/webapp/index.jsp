@@ -33,11 +33,12 @@
                     %>
 
                 <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
+                 <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Profile</a></li> 
                     <%}
                             }else{
                                 %>
-                 <li><a href="register.jsp">Register</a></li>
-                <li><a href="login.jsp">Login</a></li>
+                 <li><a href="/Instagrim/Register">Register</a></li>
+                <li><a href="/Instagrim/Login">Login</a></li>
                 <%
                                         
                             
@@ -47,7 +48,7 @@
         <footer>
             <ul>
                 <li class="footer"><a href="/Instagrim">Home</a></li>
-                <li>&COPY; Andy C</li>
+                <li>&COPY; Zain Mahmood</li>
             </ul>
         </footer>
     </body>

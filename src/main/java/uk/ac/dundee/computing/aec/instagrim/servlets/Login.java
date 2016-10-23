@@ -25,7 +25,12 @@ import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
  *
  * @author Administrator
  */
-@WebServlet(name = "Login", urlPatterns = {"/Login"})
+@WebServlet(name = "Login", urlPatterns = { 
+  "/Login",
+  "/Login/*"
+})
+
+
 public class Login extends HttpServlet {
 
     Cluster cluster=null;
@@ -35,6 +40,11 @@ public class Login extends HttpServlet {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
     }
+//protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // TODO Auto-generated method stub
+   //         RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
+   //       rd.forward(request, response);
+   // }
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -49,6 +59,7 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         
         String username=request.getParameter("username");
+        username= username.toLowerCase();
         String password=request.getParameter("password");
         
         User us=new User();
@@ -60,7 +71,7 @@ public class Login extends HttpServlet {
             LoggedIn lg= new LoggedIn();
             lg.setLogedin();
             lg.setUsername(username);
-            //request.setAttribute("LoggedIn", lg);
+            request.setAttribute("LoggedIn", lg);
             
             session.setAttribute("LoggedIn", lg);
             System.out.println("Session in servlet "+session);
@@ -68,11 +79,16 @@ public class Login extends HttpServlet {
 	    rd.forward(request,response);
             
         }else{
-            response.sendRedirect("/Instagrim/login.jsp");
+            response.sendRedirect("/Instagrim/Login");
         }
         
     }
-
+    
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+       //  TODO Auto-generated method stub
+            RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
+        rd.forward(request, response);
+    }
     /**
      * Returns a short description of the servlet.
      *

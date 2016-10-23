@@ -17,13 +17,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
+import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
 import uk.ac.dundee.computing.aec.instagrim.models.User;
 
 /**
  *
  * @author Administrator
  */
-@WebServlet(name = "Register", urlPatterns = {"/Register"})
+@WebServlet(name = "Register", urlPatterns = { 
+  "/Register",
+  "/Register/*"
+})
+
+
+
 public class Register extends HttpServlet {
     Cluster cluster=null;
     public void init(ServletConfig config) throws ServletException {
@@ -45,17 +52,28 @@ public class Register extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username=request.getParameter("username");
-        String password=request.getParameter("password");
         
+        
+        String username=request.getParameter("username");
+        username= username.toLowerCase();
+        String password=request.getParameter("password");
         User us=new User();
         us.setCluster(cluster);
-        us.RegisterUser(username, password);
-        
+        boolean isValid=us.IsValidUser(username, password);
+        if (isValid){
+	response.sendRedirect("/Instagrim/Register");
+                    }
+        else{        
+        us.RegisterUser(username, password);        
 	response.sendRedirect("/Instagrim");
-        
-    }
+        }
 
+    }
+ protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // TODO Auto-generated method stub
+            RequestDispatcher rd = request.getRequestDispatcher("/register.jsp");
+          rd.forward(request, response);
+    }
     /**
      * Returns a short description of the servlet.
      *
