@@ -21,7 +21,7 @@ import uk.ac.dundee.computing.aec.instagrim.models.User;
 
 /**
  *
- * @author zainm
+ * @author Zain Mahmood
  */
 @WebServlet(name = "Upload", urlPatterns = {"/Upload"})
 public class Upload extends HttpServlet {
